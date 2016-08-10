@@ -8,12 +8,11 @@
 
 require_once 'mvc-core-params.php';
 
-require_once CORE_DIR.'Model.class.php';
-require_once CORE_DIR.'Controller.class.php';
-require_once CORE_DIR.'Ajax.class.php';
-require_once CORE_DIR.DATABASE_FILE;
-
+require_once ROOT.CORE_DIR.'Model.class.php';
+require_once ROOT.CORE_DIR.'Controller.class.php';
+require_once ROOT.CORE_DIR.'Ajax.class.php';
+require_once ROOT.CORE_DIR.DATABASE_FILE;
 require_once 'lib/Twig/Autoloader.php';
 
-/* next in Core::__construct() */
+
 require_once 'core/Core.class.php';

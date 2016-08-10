@@ -103,6 +103,7 @@ class Core
      * @throws Exception - 404 case exception
      */
     private function initialize() {
+        die(ROOT.CONTROLLERS_DIR.$this->controller['file']);
         if (file_exists(ROOT.CONTROLLERS_DIR.$this->controller['file']))
             include ROOT.CONTROLLERS_DIR.$this->controller['file'];
         else
@@ -137,6 +138,7 @@ class Core
         /* no controller was included before this case */
         include ROOT.CONTROLLERS_DIR."controller_404.php";
         /* same for model */
+        $this->twig = $this->twig_start();
         $this->model = new Model();
         $controller = new Controller_404($this);
         $controller->action_index();

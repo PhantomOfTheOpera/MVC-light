@@ -6,7 +6,7 @@
  * Time: 23:19
  */
 
-define('ROOT', __DIR__);
+define('ROOT', __DIR__.'/');
 
 define('CORE_DIR', 'core/');
 
@@ -24,15 +24,15 @@ define('TWIG_CACHE_DIR', false);
 
 define('MYSQL_USER', 'root');
 
-define('MYSQL_PASS', 's5k19a10');
+define('MYSQL_PASS', '');
 
-define('MYSQL_DB', 'alterschool');
+define('MYSQL_DB', '');
 
 define('POSTGRES_USER', 'root');
 
-define('POSTGRES_PASS', 's5k19a10');
+define('POSTGRES_PASS', '');
 
-define('POSTGRES_DB', 'alterschool');
+define('POSTGRES_DB', '');
 
-define('DATABASE_FILE', 'mysqli.php');
+define('DATABASE_FILE', 'Mysqli.class.php');
 

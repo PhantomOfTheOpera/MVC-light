@@ -9,13 +9,11 @@
 class Database {
 
     /**
-     * @var here mysqli object is stored
+     * @var - postgres object is stored
      */
     public $postgres;
 
-    /**
-     * throws mysqli exception
-     */
+
     private function connect() {
         $this->postgres = pg_connect('host=localhost user='.POSTGRES_USER.' password='.POSTGRES_PASS.' dbname='.POSTGRES_DB);
     }
