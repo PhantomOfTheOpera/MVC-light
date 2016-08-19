@@ -25,7 +25,7 @@
 #
 # 1) Develop Javascript and CSS in /assets/css_src and /assets/js_src folders. In templates must be links pointing
 # at /assets/css and /assets/js. Updater class will automatically minify your code and move to those folders
-# 2) The only file in core which should be minified is model.php. You colud put there some general constants, as menu pages info.
+# 2) The only file in core which should be modified is model.php. You colud put there some general constants, as menu pages info.
 # Modifications of other files are not supposed by default.
 # 3) Page creating is done in two steps:
 #     a) Create controller by template "controller_*PAGE_NAME*"(low letters). Put there class
