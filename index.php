@@ -6,13 +6,18 @@
  * Time: 23:16
  *  */
 
-require_once 'mvc-core-params.php';
+require_once 'core/settings.php';
 
-require_once ROOT.CORE_DIR.'Model.class.php';
-require_once ROOT.CORE_DIR.'Controller.class.php';
-require_once ROOT.CORE_DIR.'Ajax.class.php';
-require_once ROOT.CORE_DIR.DATABASE_FILE;
+/* this class is active  */
+require_once 'core/updater.php';
+
+/* dependencies for core */
 require_once 'lib/Twig/Autoloader.php';
+require_once 'core/model.php';
+require_once 'core/mysqli.php';
+require_once 'core/controller.php';
+require_once 'core/ajax.php';
+require_once 'core/mailer.php';
 
-
-require_once 'core/Core.class.php';
+/* next in Core::__construct() */
+require_once 'core/core.php';
