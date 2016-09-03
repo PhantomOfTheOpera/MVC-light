@@ -7,8 +7,10 @@
  */
 
 class Controller_404 extends Controller {
-    // TODO: check if it is still needed
-    function action_index() {
-        echo $this->view->render('layout.twig', $this->model->get_data());
-    }
+
+    /* dummy
+     * this is 404 controller page.
+     * template will be rendered autmatically, data could be added form model
+     */
+
 }

@@ -6,6 +6,10 @@
  * Time: 20:37
  */
 
+/* TODO: 03.09:
+ *  404 function was rewritten without test. Careful
+ */
+
 class Core
 {
     /**
@@ -75,6 +79,13 @@ class Core
         return $twig;
     }
 
+    private function multi_explode ($delimiters,$string) {
+
+        $ready = str_replace($delimiters, $delimiters[0], $string);
+        $launch = explode($delimiters[0], $ready);
+        return  $launch;
+    }
+
     /**
      * initializes Core::$request, 'name' in  Core::$controller, Core::$db,
      *      Core::$model, Core::$action
@@ -84,7 +95,7 @@ class Core
         Important: we store whole "after explode" array in Core::$request,
             but here are used only two first items
         */
-        $this->request = explode('/', $_SERVER['REQUEST_URI']);
+        $this->request = $this->multi_explode(['/', '?'], $_SERVER['REQUEST_URI']);
         if ( !empty($this->request[1]) ) {
             $this->controller['name'] = $this->request[1];
         }
@@ -165,11 +176,15 @@ class Core
         $this->request[1] = '404';
         $this->controller = NULL;
         $this->model =  NULL;
-        if (!class_exists('Controller'))
-            require_once ROOT."controller.php";
+        if (!class_exists('Controller_404'))
+            require_once ROOT."application/controllers/controller_404.php";
         /* same for model */
-        $this->model = new Model();
-        $controller = new Controller($this);
+        if (!class_exists('Model_404'))
+            require_once ROOT."application/models/model_404.php";
+        /* needed 404 name */
+        $this->request[1] = '404';
+        $this->model = new Model_404();
+        $controller = new Controller_404($this);
         $controller->action_index();
         exit(0);
     }
