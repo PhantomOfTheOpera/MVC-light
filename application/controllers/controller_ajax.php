@@ -14,8 +14,8 @@
          $action_name = strtolower($this->core->request[2]);
          // that's done for 404 case.
          $ajax_class_name = 'Ajax';
-         if (file_exists('ajax/ajax_'.$action_name.'.php')) {
-             require_once 'ajax/ajax_' . $action_name . '.php';
+         if (file_exists(ROOT.'application/controllers/ajax/ajax_'.$action_name.'.php')) {
+             require_once ROOT.'application/controllers/ajax/ajax_' . $action_name . '.php';
              $ajax_class_name = 'Ajax_' . $action_name;
          }
          $class = new $ajax_class_name($this);
