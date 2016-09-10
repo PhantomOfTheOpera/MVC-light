@@ -6,7 +6,7 @@ define('ROOT', __DIR__.'/../');
 define('DOMAIN_NAME', 'http://localhost');
 
 // root folder on web server.
-define('WEB_ROOT_FOLDER', '/ddd');
+define('WEB_ROOT_FOLDER', '');
 
 define('TWIG_CACHE_DIR', false);
 
