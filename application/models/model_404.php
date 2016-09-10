@@ -11,7 +11,16 @@ class Model_404 extends Model {
 
     function get_404() {
         return [
-            'template' => '404'
+            'template' => '404',
+            'js_specific' => [
+                [
+                    'url' => 'assets/js/404.js',
+                    'defer' => true
+                ]
+            ],
+            'specific_css' => [
+                ['assets/css/404.css']
+            ]
         ];
     }
 

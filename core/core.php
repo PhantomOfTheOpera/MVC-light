@@ -95,7 +95,10 @@ class Core
         Important: we store whole "after explode" array in Core::$request,
             but here are used only two first items
         */
-        $this->request = $this->multi_explode(['/', '?'], $_SERVER['REQUEST_URI']);
+        $url = $_SERVER['REQUEST_URI'];
+        if (WEB_ROOT !== '/' || WEB_ROOT !== '')
+            $url = str_replace(WEB_ROOT, '', $url);
+        $this->request = $this->multi_explode(['/', '?'], $url);
         if ( !empty($this->request[1]) ) {
             $this->controller['name'] = $this->request[1];
         }
@@ -144,8 +147,9 @@ class Core
 
         if (file_exists($this->controller['path']))
             include $this->controller['path'];
-        else
+        else {
             throw new Exception('404');
+        }
         /* we pass to controller Core object */
         $this->controller = new $this->controller['name']($this);
     }
@@ -176,13 +180,14 @@ class Core
         $this->request[1] = '404';
         $this->controller = NULL;
         $this->model =  NULL;
+        $this->action['name'] = 'action_index';
+        http_response_code(404);
         if (!class_exists('Controller_404'))
             require_once ROOT."application/controllers/controller_404.php";
         /* same for model */
         if (!class_exists('Model_404'))
             require_once ROOT."application/models/model_404.php";
         /* needed 404 name */
-        $this->request[1] = '404';
         $this->model = new Model_404();
         $controller = new Controller_404($this);
         $controller->action_index();

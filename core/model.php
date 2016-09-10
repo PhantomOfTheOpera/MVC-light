@@ -18,11 +18,30 @@ class Model
         ]
     ];
 
+    public $css = [
+        [
+            'assets/css/main.css'
+        ],
+        [
+            'assets/css/styles.css'
+        ],
+    ];
+
+    public $js = [
+        [
+            'url' => 'assets/js/main.js',
+            'defer' => false
+        ]
+    ];
+
     function get_common() {
         return [
             'site_name' => '',
+            'root' => WEB_ROOT,
             'title' => '',
             'menu' => $this->menu,
+            'css_common' => $this->css,
+            'js_common' => $this->js
         ];
     }
 

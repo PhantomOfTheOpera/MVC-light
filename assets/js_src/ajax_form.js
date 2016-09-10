@@ -24,9 +24,10 @@ var Ajax= {
     }
 };
 window.onload = function() {
+    // grab all forms with 'ajax_form' class
     var forms = document.querySelectorAll('form.ajax_form');
     for (var i = 0; i < forms.length; i++) {
-        forms[i].onsubmit = function(event) {
+        forms[i].onsubmit = function(event) { // listener
             event.preventDefault();
             var inputs = this.querySelectorAll('input.active'), query = '', form = this;
             for (var z = 0; z < inputs.length; z++)
@@ -37,6 +38,7 @@ window.onload = function() {
                 url: this.getAttribute('url'),
                 data: query,
                 success: function(responce) {
+                    // call methods from object from object formed with form's id
                     window['form_' + form.id]['success'](responce);
                 },
                 error: function(responce){
@@ -48,7 +50,6 @@ window.onload = function() {
 };
 
 form_RegForm = {
-
     success: function (text) {
         alert(text);
     },

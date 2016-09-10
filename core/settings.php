@@ -2,6 +2,8 @@
 
 define('ROOT', __DIR__.'/../');
 
+define('WEB_ROOT', '');
+
 define('TWIG_CACHE_DIR', false);
 
 define('MYSQL_USER', 'login');
