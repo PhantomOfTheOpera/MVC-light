@@ -25,13 +25,12 @@ var Ajax= {
 };
 window.onload = function() {
     var forms = document.querySelectorAll('form.ajax_form');
-    for (i = 0; i < forms.length; i++) {
+    for (var i = 0; i < forms.length; i++) {
         forms[i].onsubmit = function(event) {
             event.preventDefault();
             var inputs = this.querySelectorAll('input.active'), query = '', form = this;
-            for (z = 0; z < inputs.length; z++) {
+            for (var z = 0; z < inputs.length; z++)
                 query += inputs[z].getAttribute('name') + '=' +  inputs[z].value + '&';
-            }
             query = query.slice(0, -1);
             Ajax.send({
                 method: this.getAttribute('method'),
