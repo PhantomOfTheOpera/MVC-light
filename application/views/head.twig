@@ -1,12 +1,12 @@
 {% for file in css_common %}
-    <link rel="stylesheet" href="{{ root ~ '/' ~ file[0] }}">
+    <link rel="stylesheet" href="{{ domain ~ root ~ '/assets/css/' ~ file }}">
 {% endfor %}
 {% for file in css_specific %}
-    <link rel="stylesheet" href="{{ root ~ '/' ~ file[0] }}">
+    <link rel="stylesheet" href="{{ domain ~ root ~ '/assets/css/' ~ file }}">
 {% endfor %}
 {% for file in js_common %}
-    <script {% if file.defer == true %}defer {% endif %}src="{{ root ~ '/' ~ file.url }}"></script>
+    <script {% if file.defer == true %}defer {% endif %}src="{{ domain ~ root ~ '/assets/js/' ~ file.url }}"></script>
 {% endfor %}
 {% for file in js_specific %}
-    <script {% if file.defer == true %}defer {% endif %}src="{{ root ~ '/' ~ file.url }}"></script>
+    <script {% if file.defer == true %}defer {% endif %}src="{{ domain ~ root ~ '/assets/js/' ~ file.url }}"></script>
 {% endfor %}

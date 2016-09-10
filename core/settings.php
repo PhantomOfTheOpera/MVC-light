@@ -2,7 +2,11 @@
 
 define('ROOT', __DIR__.'/../');
 
-define('WEB_ROOT', '');
+// here must be domain name, end without '/'
+define('DOMAIN_NAME', 'http://localhost');
+
+// root folder on web server.
+define('WEB_ROOT_FOLDER', '/ddd');
 
 define('TWIG_CACHE_DIR', false);
 

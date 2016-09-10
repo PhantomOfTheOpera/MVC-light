@@ -14,7 +14,7 @@ class Model_Main extends Model {
             'template' => 'main',
             'js_specific' => [
                 [
-                    'url' => 'assets/js/main1.js',
+                    'url' => 'main1.js',
                     'defer' => true
                 ]
             ]

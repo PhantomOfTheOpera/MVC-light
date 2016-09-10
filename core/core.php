@@ -96,8 +96,8 @@ class Core
             but here are used only two first items
         */
         $url = $_SERVER['REQUEST_URI'];
-        if (WEB_ROOT !== '/' || WEB_ROOT !== '')
-            $url = str_replace(WEB_ROOT, '', $url);
+        if (WEB_ROOT_FOLDER !== '/' || WEB_ROOT_FOLDER !== '')
+            $url = str_replace(WEB_ROOT_FOLDER, '', $url);
         $this->request = $this->multi_explode(['/', '?'], $url);
         if ( !empty($this->request[1]) ) {
             $this->controller['name'] = $this->request[1];

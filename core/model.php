@@ -18,18 +18,20 @@ class Model
         ]
     ];
 
+    /*
+     * array of css file includes
+     */
     public $css = [
-        [
-            'assets/css/main.css'
-        ],
-        [
-            'assets/css/styles.css'
-        ],
+        'main.css'
     ];
 
+    /**
+     * @var array of arrays
+     * url, defer - bool
+     */
     public $js = [
         [
-            'url' => 'assets/js/main.js',
+            'url' => 'main.js',
             'defer' => false
         ]
     ];
@@ -37,11 +39,12 @@ class Model
     function get_common() {
         return [
             'site_name' => '',
-            'root' => WEB_ROOT,
+            'root' => WEB_ROOT_FOLDER,
             'title' => '',
             'menu' => $this->menu,
             'css_common' => $this->css,
-            'js_common' => $this->js
+            'js_common' => $this->js,
+            'domain' => DOMAIN_NAME
         ];
     }
 
