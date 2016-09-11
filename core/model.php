@@ -31,16 +31,16 @@ class Model
      */
     public $js = [
         [
-            'url' => 'main.js',
+            'url' => 'ajax_form.js',
             'defer' => false
         ]
     ];
 
     function get_common() {
         return [
-            'site_name' => '',
+            'site_name' => SITE_NAME,
             'root' => WEB_ROOT_FOLDER,
-            'title' => '',
+            'title' => '_'.SITE_NAME,
             'menu' => $this->menu,
             'css_common' => $this->css,
             'js_common' => $this->js,

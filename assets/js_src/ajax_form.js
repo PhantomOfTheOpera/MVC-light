@@ -16,10 +16,13 @@ var Ajax= {
         xhr.open(object.method, object.url, true);
         xhr.send(object.data);
         xhr.onreadystatechange = function() {
-            if (xhr.status != 200)
-                object.success(xhr.responseText);
-            else
-                object.error(xhr.responseText);
+            if (xhr.readyState == 4) {
+                if (xhr.status != 200) {
+                    object.error(xhr.responseText);
+                }
+                else
+                    object.success(xhr.responseText);
+            }
         }
     }
 };
@@ -30,6 +33,10 @@ window.onload = function() {
         forms[i].onsubmit = function(event) { // listener
             event.preventDefault();
             var inputs = this.querySelectorAll('input.active'), query = '', form = this;
+            if (typeof window['form_' + form.id]['validate'] !== "undefined") {
+                if (window['form_' + form.id]['validate'](form) === false)
+                    return;
+            }
             for (var z = 0; z < inputs.length; z++)
                 query += inputs[z].getAttribute('name') + '=' +  inputs[z].value + '&';
             query = query.slice(0, -1);
@@ -38,22 +45,13 @@ window.onload = function() {
                 url: this.getAttribute('url'),
                 data: query,
                 success: function(responce) {
-                    // call methods from object from object formed with form's id
                     window['form_' + form.id]['success'](responce);
                 },
                 error: function(responce){
+                    console.log('...');
                     window['form_' + form.id]['error'](responce);
                 }
             });
         }
-    }
-};
-
-form_RegForm = {
-    success: function (text) {
-        alert(text);
-    },
-    error: function (text) {
-        console.log(text);
     }
 };

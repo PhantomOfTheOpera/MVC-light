@@ -8,6 +8,8 @@ define('DOMAIN_NAME', 'http://localhost');
 // root folder on web server.
 define('WEB_ROOT_FOLDER', '');
 
+define('SITE_NAME', '');
+
 define('TWIG_CACHE_DIR', false);
 
 define('MYSQL_USER', 'login');
