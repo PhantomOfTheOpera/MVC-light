@@ -17,7 +17,7 @@ var Ajax= {
         xhr.send(object.data);
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4) {
-                if (xhr.status != 200) 
+                if (xhr.status != 200)
                     object.error(xhr.responseText);
                 else
                     object.success(xhr.responseText);
