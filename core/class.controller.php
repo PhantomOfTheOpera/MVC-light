@@ -33,8 +33,8 @@ class Controller {
      */
     public static $status = 200;
 
-    public function action_index() {
-        if ($this->MVC_Core->request[2] != 'index')
+    public function action_index($route = false) {
+        if (isset($route) && $route === true)
             return false;
         echo $this->render('layout.twig', $this->model_data);
 
@@ -46,7 +46,7 @@ class Controller {
         try {
             $this->connect_model();
         } catch (Exception $e) {
-            tools::error($e);
+            Service::error($e);
         }
     }
 

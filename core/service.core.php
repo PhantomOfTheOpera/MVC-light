@@ -42,11 +42,11 @@ class MVC_Core {
      * fills request var and inits controller
      */
     function __construct() {
-        $this->request = tools::convert_url($_SERVER['REQUEST_URI']);
+        $this->request = Service::convert_url($_SERVER['REQUEST_URI']);
         try {
             $this->init();
         } catch (Exception $e) {
-            tools::error($e);
+            Service::error($e);
         }
     }
 
@@ -88,7 +88,7 @@ class MVC_Core {
             $method = $this->action;
             $obj = $this->obj_controller;
             $obj->$method();
-        } elseif ($this->obj_controller->action_index() === false)
+        } elseif ($this->obj_controller->action_index(true) === false)
             $this->error404();
     }
 }

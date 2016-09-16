@@ -27,7 +27,7 @@ class Autoloader {
      * received after scandir
      * on components init we try to include api.component.php in ths folders
      */
-    private $components = [];
+    public static $components = [];
 
     /**
      * Autoloader constructor.
@@ -43,7 +43,7 @@ class Autoloader {
         try {
             $this->init();
         } catch (Exception $e) {
-            tools::error($e);
+            Service::error($e);
         }
     }
 

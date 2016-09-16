@@ -1,9 +1,12 @@
+{% spaceless %}
 <!doctype html>
 <html lang="en">
     <head>
-
+    {% include 'head.twig' %}
+    {% include 'scripts.twig' %}
     </head>
     <body>
-        {% include templae ~ '.twig' %}
+        {% include template ~ '.twig' %}
     </body>
 </html>
+{% endspaceless %}
