@@ -6,6 +6,9 @@
  * Time: 18:27
  */
 
+namespace MVC_light;
+use Twig_Environment, Exception, Twig_Loader_Filesystem;
+
 class Controller {
 
     /**
@@ -24,23 +27,24 @@ class Controller {
     protected $model;
 
     /**
-     * @var data received from model
+     * @var array received from model
      */
     protected $model_data = [];
+
+    public static $render_time;
 
     /**
      * @var int - response status
      */
     public static $status = 200;
 
-    public function action_index($route = false) {
+    public function action_index(bool $route = false) {
         if (isset($route) && $route === true)
             return false;
         echo $this->render('layout.twig', $this->model_data);
-
     }
 
-    function __construct($core) {
+    function __construct(MVC_Core $core) {
         $this->MVC_Core = $core;
         $this->view = $this->twig_start();
         try {
@@ -54,12 +58,17 @@ class Controller {
         http_response_code(self::$status);
     }
 
-    protected function render($template, $data) {
-        return $this->view->render($template, $data);
+    protected function render(string $template, array $data) : string {
+        $t1 = microtime(true);
+        $str = $this->view->render($template, $data);
+        $t2 = microtime(true);
+        self::$render_time += $t2 - $t1;
+        Service::$total_time += ($t2 - $t1);
+        return $str;
     }
 
 
-    private function twig_start() {
+    private function twig_start() : Twig_Environment {
         $loader = new Twig_Loader_Filesystem(ROOT.'application/views');
         $twig = new Twig_Environment($loader,
             array(
@@ -71,7 +80,7 @@ class Controller {
 
     protected function connect_model() {
         $model = ROOT.'application/models/model_'.$this->MVC_Core->request[1].'.php';
-        $model_name = 'Model_'.$this->MVC_Core->request[1];
+        $model_name = '\MVC_light\Model\Model_'.$this->MVC_Core->request[1];
         $model_action = 'get_'.$this->MVC_Core->request[1];
         if (file_exists($model))
             require_once $model;

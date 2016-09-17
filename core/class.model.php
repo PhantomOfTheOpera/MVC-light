@@ -6,6 +6,8 @@
  * Time: 20:38
  */
 
+namespace MVC_light;
+
 class Model {
 
     /**
@@ -29,18 +31,18 @@ class Model {
         // !?
     }
 
-    private function get_common() {
+    private function get_common() : array {
         Service::needs('js', 'AF-light', 'true');
         return $this->common;
     }
 
-    private function get_js_css() {
+    private function get_js_css() : array {
         return [
             'includes' => self::$dependencies
         ];
     }
 
-    function get_data($next_method) {
+    function get_data(string $next_method) : array {
 
         $specific_params = $this->$next_method();
 
@@ -49,6 +51,10 @@ class Model {
         $includes = $this->get_js_css();
 
         return array_merge($common_params, $specific_params, $includes);
+
+    }
+
+    protected function connect_database(string $connection_string) {
 
     }
 

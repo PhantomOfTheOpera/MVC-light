@@ -13,5 +13,7 @@ define('WEB_ROOT', '/');
 
 define('DEBUG', true);
 
+define('TIME_DEBUG', true);
+
 define('TWIG_CACHE_DIR', false);
 

@@ -6,6 +6,8 @@
  * Time: 17:22
  */
 
+namespace MVC_light;
+use Exception;
 /**
  * called on start. Loads core of framework, then components.
  * provides method for plugin register
@@ -38,13 +40,17 @@ class Autoloader {
      * For more info look at MVC_error func
      */
     function __construct() {
+        $t1 = microtime(true);
         $this->files = array_diff(scandir(ROOT.'core', 1), ['.', '..', 'settings.php', 'service.autoloader.php']);
-        $this->components = array_diff(scandir(ROOT.'vendor/components', 1), ['.', '..']);
+        self::$components = array_diff(scandir(ROOT.'vendor/components', 1), ['.', '..']);
         try {
             $this->init();
         } catch (Exception $e) {
             Service::error($e);
         }
+        $t2 = microtime(true);
+        Service::$time_debug_string .= "Autoloader took: ".($t2 - $t1)."\n";
+        Service::$total_time += ($t2 - $t1);
     }
 
     /**
@@ -60,7 +66,7 @@ class Autoloader {
             else
                 throw new Exception('Autoloader failed to include '.$file);
         }
-        foreach ($this->components as $component) {
+        foreach (self::$components as $component) {
             if (!is_dir(ROOT.'vendor/components/'.$component))
                 throw new Exception('No files should be stored in components folder');
             $component = ROOT.'vendor/components/'.$component.'/api.component.php';
@@ -74,10 +80,10 @@ class Autoloader {
 
 
     /**
-     * @param $address - plugin folder name
+     * @param string $address - plugin folder name
      * provide plugin connect api
      */
-    static function register($address) {
+    static function register(string $address) {
 
         $plugin_name = ROOT.'/vendor/plugins/'.$address.'/api.plugin.php';
         if (file_exists($plugin_name))

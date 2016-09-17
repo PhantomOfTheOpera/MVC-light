@@ -6,13 +6,16 @@
  * Time: 20:31
  */
 
+namespace MVC_light\Model;
+use \MVC_light\Model as Model,
+    \MVC_light\Service as Service;
 
 class Model_Main extends Model {
 
-    function get_main() {
-        Service::needs('css', 'main', true);
-        Service::needs('js', 'src', true);
-        Service::needs('less', 'style', true);
+    function get_main() : array {
+        Service::needs('css', 'test', true);
+        Service::needs('js', 'test', true);
+        Service::needs('less', 'test1', true);
         return [
             'template' => 'main'
         ];

@@ -6,6 +6,8 @@
  * Time: 17:21
  */
 
+namespace MVC_light;
+
 require_once 'core/settings.php';
 
 require_once 'core/service.autoloader.php';

@@ -6,6 +6,9 @@
  * Time: 18:19
  */
 
+namespace MVC_light\components;
+use MVC_light\Autoloader as Autoloader, Less_Parser;
+
 require ROOT.'vendor/components/Less/lessc.inc.php';
 
 Autoloader::$components['less'] = new Less_Parser();

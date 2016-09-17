@@ -6,6 +6,8 @@
  * Time: 17:37
  */
 
+namespace MVC_light;
+use Exception;
 
 class MVC_Core {
 
@@ -42,12 +44,16 @@ class MVC_Core {
      * fills request var and inits controller
      */
     function __construct() {
+        $t1 = microtime(true);
         $this->request = Service::convert_url($_SERVER['REQUEST_URI']);
         try {
             $this->init();
         } catch (Exception $e) {
             Service::error($e);
         }
+        $t2 = microtime(true);
+        Service::$time_debug_string .= 'Core took: '.($t2 - $t1)."\n";
+        Service::$total_time += ($t2 - $t1);
     }
 
     /**
@@ -58,6 +64,17 @@ class MVC_Core {
     private function error404() {
         http_response_code(404);
         die('404');
+    }
+
+    function __destruct() {
+        Service::$time_debug_string .= 'Render took: '.Controller::$render_time;
+        if (TIME_DEBUG) {
+            echo Service::$time_debug_string . "\n".
+                "Js minification took: ". Service::$js_compilation_time."\n".
+                "Css minification took: ". Service::$css_compilation_time."\n".
+                "Less minification took: ". Service::$less_compilation_time."\n".
+                "Total time: ". Service::$total_time."\n\n-->";
+        }
     }
 
     /**
@@ -74,7 +91,7 @@ class MVC_Core {
         if (empty($this->request[2]))
             $this->request[2] = 'index';
         $this->path_controller = ROOT . 'application/controller/controller.' . $this->request[1] . '.php';
-        $this->name_controller = 'Controller_'.$this->request[1];
+        $this->name_controller = 'MVC_light\Controller\Controller_'.$this->request[1];
         $this->action = 'action_'.$this->request[2];
         if (file_exists($this->path_controller))
             require_once $this->path_controller;

@@ -6,6 +6,8 @@
  * Time: 17:41
  */
 
+namespace MVC_light;
+use Exception;
 /**
  * Class Service
  * has some helper funcs
@@ -15,6 +17,16 @@
  */
 class Service {
 
+    public static $time_debug_string = "\n\n<!--\n\n";
+
+    public static $total_time;
+
+    public static $js_compilation_time;
+
+    public static $css_compilation_time;
+
+    public static $less_compilation_time;
+
     /**
      * makes explosion by given array of delimiters.
      * @author cool guy from php.net
@@ -23,23 +35,22 @@ class Service {
      * @param $string
      * @return array
      */
-    private static function multi_explode ($delimiters = [], $string) {
+    private static function multi_explode (array $delimiters = [], string $string) : array {
 
         if (!is_array($delimiters) && DEBUG)
             die('Delimiters should be array in '.__FILE__.' on '.__LINE__);
         $ready = str_replace($delimiters, $delimiters[0], $string);
-        $launch = explode($delimiters[0], $ready);
-        return  $launch;
+        return explode($delimiters[0], $ready);
     }
 
     /**
      * Converts given url into array of meaning parts
      * @note: all '-' are replaced with letter T. Name controllers so
      *
-     * @param $url
+     * @param string $url
      * @return array
      */
-    static function convert_url($url) {
+    static function convert_url(string $url) : array {
         $url = str_replace('-', 'T', $url);
         return array_diff(self::multi_explode(['/', '?'], $url), [""]);
     }
@@ -53,7 +64,7 @@ class Service {
      * @param string $e
      * @param string $type
      */
-    static function error($e, $type = 'usual') {
+    static function error(string $e, string $type = 'usual') {
         Controller::$status = 500;
         if (DEBUG || $type = 'fatal')
             die($e);
@@ -74,7 +85,8 @@ class Service {
      * @param string $name
      * @param bool $minify
      */
-    private static function minify_js($name, $minify) {
+    private static function minify_js(string $name, bool $minify) {
+        $t1 = microtime(true);
         $path = ROOT.'assets/js_src/'.$name.'.js';
         $path_new = ROOT.'assets/js/'.$name.'.js';
         if (!file_exists($path)) {
@@ -89,6 +101,8 @@ class Service {
             file_put_contents($path_new, file_get_contents($path));
         }
         unlink($path);
+        $t2 = microtime(true);
+        self::$js_compilation_time += $t2 - $t1;
     }
 
     /**
@@ -98,7 +112,8 @@ class Service {
      * @param string $name
      * @param bool $minify
      */
-    private static function minify_css($name, $minify) {
+    private static function minify_css(string $name, bool $minify) {
+        $t1 = microtime(true);
         $path = ROOT.'assets/css_src/'.$name.'.css';
         $path_new = ROOT.'assets/css/'.$name.'.css';
         if (!file_exists($path)) {
@@ -116,6 +131,8 @@ class Service {
         }
         file_put_contents($path_new, $css);
         unlink($path);
+        $t2 = microtime(true);
+        self::$css_compilation_time += $t2 - $t1;
     }
 
     /**
@@ -127,7 +144,11 @@ class Service {
      * @return string $name
      * @throws Exception - if names exists in css file
      */
-    private static function compile_less($name) {
+    private static function compile_less(string $name) : string {
+        $t1 = microtime(true);
+        if (!file_exists(ROOT.'assets/css_src/'.$name.'.less')) {
+            return $name;
+        }
         if (file_exists(ROOT.'assets/css_src/'.$name.'.css'))
             throw new Exception('File with same name and css ext exists.');
         Autoloader::$components['less']->parse(
@@ -137,6 +158,8 @@ class Service {
             Autoloader::$components['less']->getCss()
         );
         unlink(ROOT.'assets/css_src/'.$name.'.less');
+        $t2 = microtime(true);
+        self::$less_compilation_time += $t2 - $t1;
         return $name;
     }
 
@@ -155,7 +178,7 @@ class Service {
      * @param array|string $name
      * @param bool $minify
      */
-    static function needs($type, $name, $minify, $mode = DEBUG) {
+    static function needs(string $type, $name, bool $minify, bool $mode = DEBUG) {
         if (is_array($name)) {
             foreach ($name as $file)
                 self::needs($type, $file, $minify);
