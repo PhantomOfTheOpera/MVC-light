@@ -73,7 +73,7 @@ if (DATABASE == 'mysql') {
             try {
                 $this->link = new mysqli($host, $user, $password, $db);
             } catch (Exception $e) {
-                Service::error($e);
+                Service::error($e, 'fatal');
             }
             $this->link->set_charset('UTF-8');
         }
