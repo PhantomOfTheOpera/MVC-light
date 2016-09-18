@@ -14,6 +14,7 @@ var Ajax= {
     send: function(object) {
         var xhr = new XMLHttpRequest();
         xhr.open(object.method, object.url, true);
+        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         xhr.send(object.data);
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4) {
@@ -31,7 +32,7 @@ window.onload = function() {
     for (var i = 0; i < forms.length; i++) {
         forms[i].onsubmit = function(event) { // listener
             event.preventDefault();
-            var inputs = this.querySelectorAll('input.active'), query = '', form = this;
+            var inputs = this.querySelectorAll('input.active, textarea.active'), query = '', form = this;
             if (typeof window['form_' + form.id]['validate'] !== "undefined") {
                 if (window['form_' + form.id]['validate'](form) === false)
                     return;

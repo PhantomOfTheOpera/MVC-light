@@ -14,4 +14,6 @@ require_once 'core/service.autoloader.php';
 
 new Autoloader();
 
+new Database();
+
 new MVC_Core();

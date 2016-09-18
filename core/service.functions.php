@@ -67,7 +67,7 @@ class Service {
     static function error(string $e, string $type = 'usual') {
         Controller::$status = 500;
         if (DEBUG || $type = 'fatal')
-            die($e);
+            die("<pre>$e</pre>");
         else {
             error_log($e);
         }

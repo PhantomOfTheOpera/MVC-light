@@ -17,3 +17,12 @@ define('TIME_DEBUG', true);
 
 define('TWIG_CACHE_DIR', false);
 
+define('DATABASE', 'mysql');
+
+define('DB_HOST', '');
+
+define('DB_USER', '');
+
+define('DB_PASSWORD', '');
+
+define('DB_NAME', '');
