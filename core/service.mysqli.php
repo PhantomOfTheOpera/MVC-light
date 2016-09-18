@@ -17,9 +17,13 @@ if (DATABASE == 'mysql') {
 
         protected function query(string $query)
         {
-            return $this->link->real_escape_string(
-                $this->link->query($query)
-            );
+            try {
+                return $this->link->real_escape_string(
+                    $this->link->query($query)
+                );
+            } catch (Exception $e) {
+                Service::error($e);
+            }
         }
 
         protected function query_params(string $query, array $params)
@@ -37,28 +41,37 @@ if (DATABASE == 'mysql') {
 
         protected function fetch_all($resource)
         {
-            return $resource->fetch_all();
+            try {
+                return $resource->fetch_all();
+            } catch (Exception $e) {
+                Service::error($e);
+            }
         }
 
         protected function fetch_assoc($resource)
         {
-            return $resource->fetch_assoc();
+            try {
+                return $resource->fetch_assoc();
+            } catch (Exception $e) {
+                Service::error($e);
+            }
         }
 
         protected function close()
         {
-            // TODO: Implement close() method.
+            try {
+                $this->link->close();
+            } catch (Exception $e) {
+                Service::error($e);
+            }
         }
 
         protected function connect(string $host, string $user, string $password, string $db)
         {
-            mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+            if (DEBUG)
+                mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
             try {
-                try {
-                    $this->link = new mysqli($host, $user, $password, $db);
-                } catch (mysqli_sql_exception $e) {
-                    throw $e;
-                }
+                $this->link = new mysqli($host, $user, $password, $db);
             } catch (Exception $e) {
                 Service::error($e);
             }
