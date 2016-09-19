@@ -10,6 +10,7 @@ namespace MVC_light\Controller;
 use \MVC_light\Controller as Controller;
 
 
+
 class Controller_Main extends Controller {
 
 

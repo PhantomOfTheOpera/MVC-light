@@ -16,8 +16,10 @@ class Model_Main extends Model {
         Service::needs('css', 'test', true);
         Service::needs('js', 'test', true);
         Service::needs('less', 'test1', true);
+        $this->database = $this->MVC_core->needs_database();
         return [
-            'template' => 'main'
+            'template' => 'main',
+            'db' => $this->database->check_database()
         ];
     }
 

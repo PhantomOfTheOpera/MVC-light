@@ -19,10 +19,10 @@ define('TWIG_CACHE_DIR', false);
 
 define('DATABASE', 'mysql');
 
-define('DB_HOST', '');
+define('DB_HOST', 'localhost');
 
-define('DB_USER', '');
+define('DB_USER', 'test_test');
 
-define('DB_PASSWORD', '');
+define('DB_PASSWORD', 'test_test');
 
-define('DB_NAME', '');
+define('DB_NAME', 'test_test');

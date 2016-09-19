@@ -108,4 +108,23 @@ class MVC_Core {
         } elseif ($this->obj_controller->action_index(true) === false)
             $this->error404();
     }
+
+
+    public function needs_database() {
+        $name = 'DB_'.$this->request[1];
+        $file = ROOT.'application/controller/database/'.$name.'.php';
+        $name = '\MVC_light\DB_'.$this->request[1];
+        try {
+            if (file_exists($file)) {
+                require_once $file;
+                if (class_exists($name))
+                    return new $name;
+                else
+                    throw new Exception("$name doesn't exist");
+            } else
+                throw new Exception("$file doesn't exist");
+        } catch (Exception $e) {
+            Service::error($e);
+        }
+    }
 }

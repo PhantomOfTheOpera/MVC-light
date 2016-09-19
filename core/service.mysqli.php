@@ -7,7 +7,7 @@
  */
 
 namespace MVC_light;
-use mysqli, mysqli_result, mysqli_sql_exception, Exception;
+use mysqli, mysqli_result, mysqli_sql_exception, Exception, Error;
 
 if (DATABASE == 'mysql') {
 
@@ -18,10 +18,10 @@ if (DATABASE == 'mysql') {
         protected function query(string $query)
         {
             try {
-                return $this->link->real_escape_string(
-                    $this->link->query($query)
+                return $this->link->query(
+                    $this->link->real_escape_string($query)
                 );
-            } catch (Exception $e) {
+            } catch (Error $e) {
                 Service::error($e);
             }
         }
@@ -43,7 +43,7 @@ if (DATABASE == 'mysql') {
         {
             try {
                 return $resource->fetch_all();
-            } catch (Exception $e) {
+            } catch (Error $e) {
                 Service::error($e);
             }
         }
@@ -52,7 +52,7 @@ if (DATABASE == 'mysql') {
         {
             try {
                 return $resource->fetch_assoc();
-            } catch (Exception $e) {
+            } catch (Error $e) {
                 Service::error($e);
             }
         }
@@ -61,7 +61,7 @@ if (DATABASE == 'mysql') {
         {
             try {
                 $this->link->close();
-            } catch (Exception $e) {
+            } catch (Error $e) {
                 Service::error($e);
             }
         }

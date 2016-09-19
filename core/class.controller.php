@@ -87,7 +87,7 @@ class Controller {
         else
             throw new Exception("Couldn't include $model");
         if (class_exists($model_name))
-            $this->model = new $model_name();
+            $this->model = new $model_name($this->MVC_Core);
         else
             throw new Exception("Couldn't start $model_name class in $model");
         if (method_exists($this->model, $model_action))

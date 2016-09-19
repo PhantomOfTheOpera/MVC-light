@@ -22,13 +22,15 @@ class Model {
         'debug' => DEBUG
     ];
 
+    protected $MVC_core;
+
     /**
      * @var array interface for dependencies inclusion
      */
     static public $dependencies = [];
 
-    function __construct() {
-        // !?
+    function __construct($MVC_core) {
+        $this->MVC_core = $MVC_core;
     }
 
     private function get_common() : array {
@@ -54,8 +56,6 @@ class Model {
 
     }
 
-    protected function connect_database(string $connection_string) {
 
-    }
 
 }
