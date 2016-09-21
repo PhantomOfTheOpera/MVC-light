@@ -151,11 +151,8 @@ class Service {
         }
         if (file_exists(ROOT.'assets/css_src/'.$name.'.css'))
             throw new Exception('File with same name and css ext exists.');
-        Autoloader::$components['less']->parse(
-            file_get_contents(ROOT.'assets/css_src/'.$name.'.less')
-        );
-        file_put_contents(ROOT.'assets/css_src/'.$name.'.css',
-            Autoloader::$components['less']->getCss()
+        Autoloader::$components['less']->compileFile(
+            ROOT.'assets/css_src/'.$name.'.less', ROOT.'assets/css_src/'.$name.'.css'
         );
         unlink(ROOT.'assets/css_src/'.$name.'.less');
         $t2 = microtime(true);

@@ -11,4 +11,4 @@ use MVC_light\Autoloader as Autoloader, Less_Parser;
 
 require ROOT.'vendor/components/Less/lessc.inc.php';
 
-Autoloader::$components['less'] = new Less_Parser();
+Autoloader::$components['less'] = new lessc();
