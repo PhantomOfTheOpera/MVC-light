@@ -13,9 +13,6 @@ use \MVC_light\Model as Model,
 class Model_Main extends Model {
 
     function get_main() : array {
-        Service::needs('css', 'test', true);
-        Service::needs('js', 'test', true);
-        Service::needs('less', 'test1', true);
         $this->database = $this->MVC_core->needs_database();
         return [
             'template' => 'main',

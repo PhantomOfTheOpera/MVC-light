@@ -34,7 +34,7 @@ class Model {
     }
 
     private function get_common() : array {
-        Service::needs('js', 'AF-light', 'true');
+        Service::needs('less', 'main', 'true');
         return $this->common;
     }
 

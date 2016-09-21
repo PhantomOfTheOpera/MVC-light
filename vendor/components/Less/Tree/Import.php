@@ -33,7 +33,6 @@ class Less_Tree_Import extends Less_Tree{
 		$this->path = $path;
 		$this->features = $features;
 		$this->currentFileInfo = $currentFileInfo;
-
 		if( is_array($options) ){
 			$this->options += array('inline'=>false);
 
