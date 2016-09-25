@@ -20,9 +20,6 @@ This project was done on educational purpose.
 
 5. Ajax is proceed on /ajax/\** address. Naming rules are same. Method, started by default is named action(). It must fill $this->message and that's all. Be carefull - it's not expected to return something.
 
---
-
-
 ## Installation:
 
 - Just unzip
