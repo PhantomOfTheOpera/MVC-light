@@ -50,7 +50,7 @@ class Service {
      * @param string $url
      * @return array
      */
-    static function convert_url(string $url) : array {
+    public static function convert_url(string $url) : array {
         $url = str_replace('-', 'T', $url);
         return array_diff(self::multi_explode(['/', '?'], $url), [""]);
     }
@@ -64,7 +64,7 @@ class Service {
      * @param string $e
      * @param string $type
      */
-    static function error(string $e, string $type = 'usual') {
+    public static function error(string $e, string $type = 'usual') {
         Controller::$status = 500;
         if (DEBUG || $type = 'fatal')
             die("<pre>$e</pre>");
@@ -73,6 +73,27 @@ class Service {
         }
     }
 
+    /** Unescapes input string
+     * @param $value
+     * @return string
+     */
+    public static function filter(string $value) : string
+    {
+        return addslashes(htmlspecialchars($value));
+    }
+
+    /** Filters all the fields in object or array recursively
+     * @param $array
+     */
+    public static function filterArr(array &$array)
+    {
+        foreach ($array as &$value) {
+            if(is_array($value) || is_object($value))
+                self::filterArr($value);
+            else
+                $value = self::filter($value);
+        }
+    }
 
     /**
      * Minifies js by given name, Depending on minify flag compresses.

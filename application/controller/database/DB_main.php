@@ -12,7 +12,7 @@ class DB_main extends Database {
 
     function check_database() {
 
-        return $this->fetch_all(
+        return $this->fetch_all( // test
             $this->query('select * from test')
         );
 
