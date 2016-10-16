@@ -21,12 +21,6 @@ class Api
     private static $method = '';
 
     /**
-     * @var string
-     */
-    // TODO: not required mb
-    private static $request = '';
-
-    /**
      * @var array of argumets after exploding root, etc
      */
     private static $args = [];
@@ -69,15 +63,15 @@ class Api
      * Api initialization.
      * Checks method, classname, processes request and makes response.
      */
-
-    public static function init()
+    /**
+     * @param string $name
+     */
+    public static function init(string $name = '')
     {
         // TODO: rewrite it to some another functions
         self::checkMethod();
-        self::$request = $_GET['url'];
+        self::$args = ($name == '') ? explode('/', rtrim($_GET['url'], '/')) : [$name];
 
-        //TODO: explode path to api (set params above, etc)
-        self::$args = explode('/', rtrim(self::$request, '/'));
         array_shift(self::$args);
 
         if(!isset(self::$args[0]))

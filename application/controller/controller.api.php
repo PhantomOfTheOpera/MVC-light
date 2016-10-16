@@ -17,11 +17,11 @@ class Controller_Api extends Controller {
     {
         try {
             Api::registerApiClass("Sample");
-            Api::init();
+            Api::init($this->MVC_Core->request[2]);
         } catch (Exception $exc) {
+            // TODO: service::error??
             echo Api::response($exc->getMessage(), $exc->getCode());
         }
-
         return true;
     }
 
