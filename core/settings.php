@@ -1,23 +1,28 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: killer
+ * Date: 15/09/16
+ * Time: 17:21
+ */
+
 
 define('ROOT', __DIR__.'/../');
 
-// here must be domain name, end without '/'
-define('DOMAIN_NAME', 'http://localhost');
+define('WEB_ROOT', '/');
 
-// root folder on web server.
-define('WEB_ROOT_FOLDER', '');
+define('DEBUG', true);
 
-define('SITE_NAME', '');
+define('TIME_DEBUG', true);
 
 define('TWIG_CACHE_DIR', false);
 
-define('MYSQL_USER', 'login');
+define('DATABASE', 'mysql');
 
-define('MYSQL_PASS', 'pass');
+define('DB_HOST', 'localhost');
 
-define('MYSQL_DB', 'database');
+define('DB_USER', 'test_test');
 
-define('MAIL_USERNAME', 'test@mail');
+define('DB_PASSWORD', 'test_test');
 
-define('MAIL_PASSWORD', 'pass');
+define('DB_NAME', 'test_test');

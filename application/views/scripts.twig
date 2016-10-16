@@ -1,0 +1,8 @@
+{% for include in includes %}
+    {% if include.type == 'js' %}
+        <script src="{{ include.path }}"></script>
+    {% endif %}
+    {% if include.type == 'css' %}
+        <link rel="stylesheet" href="{{ include.path }}">
+    {% endif %}
+{% endfor %}
