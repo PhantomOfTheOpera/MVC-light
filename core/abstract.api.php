@@ -7,6 +7,16 @@
  * Time: 21:13
  */
 
+namespace MVC_light;
+
+define("GET", 1);
+define("POST", 2);
+define("PUT", 3);
+define("DELETE", 4);
+define("SEARCH", 5);
+define("DELIMETR", "|");
+
+
 /**
  * Class ApiAbstract - abstract class describes each of Api Classes.
  * All api classes must extend ApiAbstract

@@ -1,24 +1,13 @@
 <?php
 
+namespace MVC_light;
+use Exception;
 /**
  * Created by PhpStorm.
  * User: artem
  * Date: 14.10.16
  * Time: 21:15
  */
-require_once "abstract.api.php";
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-define("GET", 1);
-define("POST", 2);
-define("PUT", 3);
-define("DELETE", 4);
-// TODO: search is cool, but i think in fact it is not so
-define("SEARCH", 5);
-
-define("DELIMETR", "|");
 
 /**
  * Class Api.
@@ -40,7 +29,7 @@ class Api
     /**
      * @var array of argumets after exploding root, etc
      */
-    private static $args = Array();
+    private static $args = [];
 
     /**
      * @var array of class names that was registred in index.php file
@@ -48,9 +37,8 @@ class Api
     private static $registeredClasses = [];
 
     /**
-     * @var array availible requet methods
+     * @var array available request methods
      */
-    // TODO: for what?
     private static $availableMethods = [
         "GET" => GET,
         "POST" => POST,
@@ -71,10 +59,10 @@ class Api
      */
 
     public static function registerApiClass($className) {
-        if(!file_exists("../application/api/" . $className . ".php"))
+        if(!file_exists(ROOT."application/api/" . $className . ".php"))
             throw new Exception("ERR: Class " . $className . " not registered. ", 500);
         array_push(self::$registeredClasses, $className);
-        require_once "../application/api/" . $className . ".php";
+        require_once ROOT."application/api/" . $className . ".php";
     }
 
     /**
@@ -107,10 +95,10 @@ class Api
             array_shift(self::$args);
         }
 
-        $api = new $className();
+        new $className();
 
         self::$startTime = microtime(true);
-        $api->execute(self::$method, self::$args);
+        ApiAbstract::execute(self::$method, self::$args);
     }
 
     /**

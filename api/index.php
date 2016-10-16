@@ -12,16 +12,3 @@ require_once "../core/service.api.php";
  * Api initialization
  */
 
-try {
-//    Register all api classes you need
-
-    Api::registerApiClass("Sample");
-//    Api::registerApiClass("Sample2");
-//    Api::registerApiClass("Sample3");
-
-//    Init Api, Parse query and execute request
-    Api::init();
-
-} catch (Exception $exc) {
-    echo Api::response($exc->getMessage(), $exc->getCode());
-}

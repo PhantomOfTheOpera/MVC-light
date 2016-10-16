@@ -13,14 +13,12 @@ class Sample extends ApiAbstract {
     public $param_2;
 
 
-    public function select($id)
-    {
+    public function select($id)  {
         //select from db
         $this->param_1 = "1";
         $this->param_2 = "2";
 
         echo Api::response($this, 200);
-
     }
 
     public function update($object)
