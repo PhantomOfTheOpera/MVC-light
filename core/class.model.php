@@ -29,12 +29,14 @@ class Model {
      */
     static public $dependencies = [];
 
-    function __construct($MVC_core) {
+
+    function __construct(MVC_Core $MVC_core) {
         $this->MVC_core = $MVC_core;
     }
 
     private function get_common() : array {
-        Service::needs('less', 'main', 'true');
+        Service::needs('js', 'AF-light', true);
+        $this->common['token'] = Service::generate_token();
         return $this->common;
     }
 

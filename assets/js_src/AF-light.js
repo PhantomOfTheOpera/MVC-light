@@ -1,56 +1,53 @@
 /**
- * Created by killer on 16/09/16.
+ * Created by killer on 02/10/16.
  */
-
-
-var Ajax= {
-    /**
-     *
-     * @param object - object
-     * object.method
-     * object.selector
-     * object.address
-     */
-    send: function(object) {
+var Ajax = (function () {
+    function Ajax(object) {
         var xhr = new XMLHttpRequest();
         xhr.open(object.method, object.url, true);
-        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.send(object.data);
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
                 if (xhr.status != 200)
                     object.error(xhr.responseText);
                 else
                     object.success(xhr.responseText);
             }
-        }
+        };
     }
-};
-window.onload = function() {
-    // grab all forms with 'ajax_form' class
+    return Ajax;
+}());
+window.onload = function () {
     var forms = document.querySelectorAll('form.ajax_form');
     for (var i = 0; i < forms.length; i++) {
-        forms[i].onsubmit = function(event) { // listener
+        forms[i].onsubmit = function (event) {
             event.preventDefault();
-            var inputs = this.querySelectorAll('input.active, textarea.active'), query = '', form = this;
-            if (typeof window['form_' + form.id]['validate'] !== "undefined") {
-                if (window['form_' + form.id]['validate'](form) === false)
-                    return;
+            var inputs = this.querySelectorAll('input, textarea');
+            var query = '';
+            var obj_name = 'form_' + this.getAttribute('id');
+            var form = this;
+            var token = (document.querySelector('token') == null) ?
+                'false' : document.querySelector('token').innerHTML;
+            if (typeof window[obj_name]['validate'] != "undefined") {
+                if (window[obj_name]['validate'](form) === false)
+                    return false;
             }
-            for (var z = 0; z < inputs.length; z++)
-                query += inputs[z].getAttribute('name') + '=' +  inputs[z].value + '&';
-            query = query.slice(0, -1);
-            Ajax.send({
-                method: this.getAttribute('method'),
-                url: this.getAttribute('url'),
+            for (var i_1 = 0; i_1 < inputs.length; i_1++)
+                query += (inputs[i_1].getAttribute('name') == null) ?
+                    '' : inputs[i_1].getAttribute('name') + '=' + encodeURI(inputs[i_1].value) + '&';
+            query += 'token=' + encodeURI(token);
+            new Ajax({
+                method: form.getAttribute('method'),
+                url: form.getAttribute('url'),
                 data: query,
-                success: function(responce) {
-                    window['form_' + form.id]['success'](responce);
+                success: function (responce) {
+                    window[obj_name]['success'](responce);
                 },
-                error: function(responce){
-                    window['form_' + form.id]['error'](responce);
+                error: function (responce) {
+                    window[obj_name]['error'](responce);
                 }
             });
-        }
+        };
     }
 };

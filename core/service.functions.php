@@ -55,6 +55,24 @@ class Service {
         return array_diff(self::multi_explode(['/', '?'], $url), [""]);
     }
 
+    public static function generate_token() : string {
+        if (!(array_key_exists('token_expire', $_SESSION)) ||
+            !(array_key_exists('token', $_SESSION)) ||
+            time() > $_SESSION['token_expire']) {
+            $_SESSION['token'] = uniqid(random_int(0, PHP_INT_MAX), true);
+            $_SESSION['token_expire'] = time() + 10 * 60;
+        }
+        return $_SESSION['token'];
+    }
+
+    public static function validate_token(string $token) : bool {
+        if ($_SESSION['token'] == $token && $_SESSION['token_expire'] >= time())
+            return true;
+        self::generate_token();
+        return false;
+    }
+
+
     /**
      * handles errors from whole framework. This is the only handler.
      * $e message from Exception. $type - two cases:
@@ -115,9 +133,8 @@ class Service {
             return;
         }
         if ($minify) {
-            Autoloader::$components['phpcc']->add(ROOT."assets/js_src/$name.js")
-                ->exec("../../assets/js/$name.js");
-            Autoloader::$components['phpcc']->reset();
+            $packer = new \JavaScriptPacker(file_get_contents($path), 'Normal', true, false);
+            file_put_contents($path_new, $packer->pack());
         } else {
             file_put_contents($path_new, file_get_contents($path));
         }

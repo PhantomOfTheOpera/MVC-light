@@ -68,7 +68,7 @@ class MVC_Core {
 
     function __destruct() {
         Service::$time_debug_string .= 'Render took: '.Controller::$render_time;
-        if (TIME_DEBUG) {
+        if (TIME_DEBUG && $this->request[1] != 'ajax') {
             echo Service::$time_debug_string . "\n".
                 "Js minification took: ". Service::$js_compilation_time."\n".
                 "Css minification took: ". Service::$css_compilation_time."\n".

@@ -26,3 +26,7 @@ define('DB_USER', 'test_test');
 define('DB_PASSWORD', 'test_test');
 
 define('DB_NAME', 'test_test');
+
+define('ADMIN', true);
+
+define('CSRF_SAFE', true);

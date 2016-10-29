@@ -11,11 +11,11 @@ require_once __DIR__.'/../core/settings.php';
 
 class Page {
 
-    private static $name = 'new';
+    private static $name = 'mvc-manager';
 
     private static $database = false;
 
-    private static $template = 'new';
+    private static $template = 'mvc-manager';
 
     public static function create() {
 

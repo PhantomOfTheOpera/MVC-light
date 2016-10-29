@@ -45,6 +45,7 @@ class Controller {
     }
 
     function __construct(MVC_Core $core) {
+        session_start();
         $this->MVC_Core = $core;
         $this->view = $this->twig_start();
         try {
@@ -55,6 +56,7 @@ class Controller {
     }
 
     function __destruct() {
+        session_write_close();
         http_response_code(self::$status);
     }
 

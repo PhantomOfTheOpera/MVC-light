@@ -13,10 +13,8 @@ use \MVC_light\Model as Model,
 class Model_Main extends Model {
 
     function get_main() : array {
-        $this->database = $this->MVC_core->needs_database();
         return [
-            'template' => 'main',
-            'db' => $this->database->check_database()
+            'template' => 'main'
         ];
     }
 

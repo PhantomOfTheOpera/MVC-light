@@ -42,7 +42,7 @@ class Autoloader {
     function __construct() {
         $t1 = microtime(true);
         $this->files = array_diff(scandir(ROOT.'core', 1),
-            ['.', '..', 'settings.php', 'abstract.autoloader.php', 'abstract.api.php', 'interface.database.php']);
+            ['.', '..', 'settings.php', 'abstract.autoloader.php',  'interface.database.php']);
         self::$components = array_diff(scandir(ROOT.'vendor/components', 1), ['.', '..']);
         try {
             $this->init();
@@ -61,7 +61,6 @@ class Autoloader {
      */
     function init() {
         require_once ROOT . 'core/abstract.database.php';
-        require_once ROOT . 'core/abstract.api.php';
         foreach ($this->files as $file) {
             $file = ROOT.'core/'.$file;
             if (file_exists($file))
