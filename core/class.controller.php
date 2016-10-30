@@ -33,7 +33,7 @@ class Controller extends Ab_Controller {
         echo $this->render('layout.twig', $this->model_data);
     }
 
-    protected function render(string $template, array $data) : string {
+    public function render(string $template, array $data) : string {
         $str = $this->view->render($template, $data);
         return $str;
     }

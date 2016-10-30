@@ -11,14 +11,14 @@ require_once __DIR__.'/../core/settings.php';
 
 class Page {
 
-    // private static $type = 'page';
-     private static $type = 'ajax';
+    private static $type = 'page';
+    // private static $type = 'ajax';
 
-    private static $name = 'test';
+    private static $name = 'app';
 
     private static $database = false;
 
-    private static $template = 'mvcmanager';
+    private static $template = 'app';
 
     public static function create() {
         $function = (self::$type == 'page') ? 'create_page' : 'create_ajax';
@@ -27,7 +27,7 @@ class Page {
 
     static function create_page() {
         $controller_path = ROOT.'application/controller/controller.'.self::$name.'.php';
-        $model_path = ROOT.'application/models/model_'.self::$name.'.php';
+        $model_path = ROOT.'application/models/model.'.self::$name.'.php';
         $view_path = ROOT.'application/views/'.self::$template.'.twig';
         if (file_exists($controller_path) || file_exists($model_path) || file_exists($view_path))
             die('Such a files exist');

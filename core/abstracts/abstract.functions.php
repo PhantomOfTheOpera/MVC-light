@@ -101,4 +101,6 @@ abstract class Ab_Service {
      */
     abstract static function needs(string $type, $name, bool $minify, bool $mode = DEBUG);
 
+
+    abstract static function register_app(string $name) : Module;
 }

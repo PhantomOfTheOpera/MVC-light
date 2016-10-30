@@ -147,5 +147,18 @@ class Service extends Ab_Service {
             ];
         }
     }
+
+    static function register_app(string $name) : Module {
+        try {
+            $path = ROOT.'vendor/apps/'.$name.'/app.index.php';
+            if (!file_exists($path))
+                throw new \Exception("Couldn't start app by path $path");
+            require_once $path;
+            $app = new \MVC_light\Module();
+            return $app;
+        } catch (\Exception $e) {
+            Service::error($e, 'fatal');
+        }
+    }
 }
 

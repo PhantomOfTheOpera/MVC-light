@@ -41,12 +41,16 @@ abstract class Ab_Controller {
      */
     public static $status = 200;
 
+
+    public function get_model_data() {
+        return $this->model_data;
+    }
     /**
      * @param string $template
      * @param array $data
      * @return string
      */
-    abstract protected function render(string $template, array $data) : string;
+    abstract public function render(string $template, array $data) : string;
 
     /**
      * @param bool $route
