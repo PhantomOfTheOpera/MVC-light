@@ -30,3 +30,7 @@ define('DB_NAME', 'test_test');
 define('ADMIN', true);
 
 define('CSRF_SAFE', true);
+
+define('VERSION', 'MVC-light v2.1.0');
+
+define('SITE_NAME', 'MVC-light');

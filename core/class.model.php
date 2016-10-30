@@ -16,7 +16,10 @@ class Model extends Ab_Model {
 
     protected function get_common() : array {
         Service::needs('js', 'AF-light', true);
+        Service::needs('css', 'main', true);
         $this->common['token'] = Service::generate_token();
+        $this->common['version'] = VERSION;
+        $this->common['site_name'] = SITE_NAME;
         return $this->common;
     }
 

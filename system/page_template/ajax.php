@@ -1,14 +1,8 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: killer
- * Date: 29/10/16
- * Time: 20:58
- */
+<?php echo "<?php\n\n"; ?>
 
 namespace MVC_light;
 
-class Ajax_test extends Ajax {
+class Ajax_<?php echo $name; ?> extends Ajax {
 
     function action() {
         $this->message['state'] = 'success';

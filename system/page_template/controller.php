@@ -1,11 +1,12 @@
 <?php
 echo "<?php\n\n";
+?>
+namespace MVC_light\Controller;
 
-echo "namespace MVC_light\Controller;\n\n";
+use \MVC_light\Controller as Controller;
 
-echo "use \MVC_light\Controller as Controller;\n";
+class Controller_<?php echo $name; ?> extends Controller {
 
-echo "class Controller_$name extends Controller {\n";
-echo "\n";
-echo "\t// dummy\n\n";
-echo '}';
+    // dummy
+
+}

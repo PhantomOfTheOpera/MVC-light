@@ -49,7 +49,7 @@ class Controller extends Ab_Controller {
     }
 
     protected function connect_model() {
-        $model = ROOT.'application/models/model_'.$this->MVC_Core->request[1].'.php';
+        $model = ROOT.'application/models/model.'.$this->MVC_Core->request[1].'.php';
         $model_name = '\MVC_light\Model\Model_'.$this->MVC_Core->request[1];
         $model_action = 'get_'.$this->MVC_Core->request[1];
         if (file_exists($model))

@@ -16,7 +16,7 @@ use \MVC_light\Controller as Controller;
       */
      public function action_index(bool $route = false) {
          $action_name = strtolower($this->MVC_Core->request[2]);
-         require_once __DIR__.'/ajax/ajax_'.$action_name.'.php';
+         require_once __DIR__.'/ajax/ajax.'.$action_name.'.php';
          $ajax_class_name = '\MVC_light\Ajax_'.$action_name;
          $class = new $ajax_class_name($this);
          $class->action();

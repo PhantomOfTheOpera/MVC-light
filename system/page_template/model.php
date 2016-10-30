@@ -1,21 +1,17 @@
-<?php
-echo "<?php\n\n";
+<?php echo "<?php\n\n"; ?>
 
-echo "namespace MVC_light\Model;\n\n";
-echo "
-use \MVC_light\Model as Model,\n
-    \t\MVC_light\Service as Service;\n";
+namespace MVC_light\Model;
+use \MVC_light\Model as Model,
+    \MVC_light\Service as Service;
 
-echo "class Model_$name extends Model {\n";
+class Model_<?php echo $name; ?> extends Model {
 
-echo "\tfunction get_$name() {\n";
+    function get_<?php echo $name; ?>() {
 
-echo "\t\treturn [\n";
+        return [
+            'template' => '<?php echo $template; ?>'
+        ];
 
-echo "\t\t\t'template' => '$template'\n";
+    }
 
-echo "\t\t];\n";
-
-echo "\t}\n";
-
-echo "}\n";
+}
