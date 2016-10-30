@@ -9,82 +9,22 @@
 namespace MVC_light;
 use Exception;
 
-class MVC_Core {
+class MVC_Core extends Ab_Core {
 
-    /**
-     * @var array of exploded request url.
-     * Created on __construct. Explosion is made by / and ?
-     * all '-' are replaced with 'T'
-     */
-    public $request = [];
-
-    /**
-     * @var string - controller name.
-     * here is stored current controller's class name
-     */
-    private $name_controller = 'Controller_main';
-
-    /**
-     * @var string = path to controller
-     */
-    private $path_controller =  ROOT.'application/controller/controller.main.php';
-
-    /**
-     * @var object - here would be stored controller object on creation
-     */
-    public $obj_controller;
-
-    /**
-     * @var string - default action name
-     */
-    private $action = 'action_index';
-
-    /**
-     * MVC_Core constructor.
-     * fills request var and inits controller
-     */
     function __construct() {
-        $t1 = microtime(true);
         $this->request = Service::convert_url($_SERVER['REQUEST_URI']);
         try {
             $this->init();
         } catch (Exception $e) {
             Service::error($e);
         }
-        $t2 = microtime(true);
-        Service::$time_debug_string .= 'Core took: '.($t2 - $t1)."\n";
-        Service::$total_time += ($t2 - $t1);
     }
 
-    /**
-     * 404 case function
-     * is ran when couldn't find controller file, or action
-     * method isn't presented in controller
-     */
-    private function error404() {
+    protected function error404() {
         http_response_code(404);
         die('404');
     }
 
-    function __destruct() {
-        Service::$time_debug_string .= 'Render took: '.Controller::$render_time;
-        if (TIME_DEBUG && $this->request[1] != 'ajax') {
-            echo Service::$time_debug_string . "\n".
-                "Js minification took: ". Service::$js_compilation_time."\n".
-                "Css minification took: ". Service::$css_compilation_time."\n".
-                "Less minification took: ". Service::$less_compilation_time."\n".
-                "Total time: ". Service::$total_time."\n\n-->";
-        }
-    }
-
-    /**
-     * Firstly checks if request is filled enough for starting controller
-     * then forms name, path,, and inits controller
-     * if no fie presented - 404
-     * if no method presented we run action_index method - thas allows to make routing from controller
-     * if itb returns false - that's 404
-     * @throws Exception
-     */
     function init() {
         if (empty($this->request[1]))
             $this->request[1] = 'main';
@@ -108,7 +48,6 @@ class MVC_Core {
         } elseif ($this->obj_controller->action_index(true) === false)
             $this->error404();
     }
-
 
     public function needs_database() {
         $name = 'DB_'.$this->request[1];

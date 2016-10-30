@@ -6,6 +6,7 @@
  * Time: 20:58
  */
 
+namespace MVC_light;
 
 class Ajax_test extends Ajax {
 

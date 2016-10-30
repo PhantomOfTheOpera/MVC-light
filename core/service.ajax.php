@@ -1,35 +1,18 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: killer
  * Date: 06/08/16
  * Time: 23:18
  */
-class Ajax
+
+namespace MVC_light;
+
+use MVC_light\Controller\Controller_Ajax as Controller_Ajax;
+class Ajax extends Ab_Ajax
 {
-    /**
-     * @var string params
-     */
-    public $params;
-
-    /**
-     * @var \MVC_light\Controller\Controller_Ajax sample of controller class
-     */
-    public $controller;
-
-    /**
-     * @var array result message
-     * will be returned as answer
-     */
-    public $message = [
-        'state' => 'error'
-    ];
-
-    public $code = 500;
-
-    function __construct(\MVC_light\Controller\Controller_Ajax $controller) {
-        if (CSRF_SAFE && !\MVC_light\Service::validate_token($_REQUEST['token'])) {
+    function __construct(Controller_Ajax $controller) {
+        if (CSRF_SAFE && !Service::validate_token($_REQUEST['token'])) {
             $this->message['state'] = 'Forbidden';
             $this->code = 403;
             exit();
@@ -40,6 +23,7 @@ class Ajax
 
     function __destruct() {
         http_response_code($this->code);
+        $this->message['code'] = $this->code;
         echo json_encode($this->message);
     }
 }

@@ -9,45 +9,12 @@
 namespace MVC_light;
 use Twig_Environment, Exception, Twig_Loader_Filesystem;
 
-class Controller {
-
-    /**
-     * @var Twig_Environment
-     */
-    protected $view;
-
-    /**
-     * @var - Core obj
-     */
-    protected $MVC_Core;
-
-    /**
-     * @var model obj
-     */
-    protected $model;
-
-    /**
-     * @var array received from model
-     */
-    protected $model_data = [];
-
-    public static $render_time;
-
-    /**
-     * @var int - response status
-     */
-    public static $status = 200;
-
-    public function action_index(bool $route = false) {
-        if (isset($route) && $route === true)
-            return false;
-        echo $this->render('layout.twig', $this->model_data);
-    }
+class Controller extends Ab_Controller {
 
     function __construct(MVC_Core $core) {
         session_start();
         $this->MVC_Core = $core;
-        $this->view = $this->twig_start();
+        $this->view = $this->register_view();
         try {
             $this->connect_model();
         } catch (Exception $e) {
@@ -60,17 +27,18 @@ class Controller {
         http_response_code(self::$status);
     }
 
+    public function action_index(bool $route = false) {
+        if (isset($route) && $route === true)
+            return false;
+        echo $this->render('layout.twig', $this->model_data);
+    }
+
     protected function render(string $template, array $data) : string {
-        $t1 = microtime(true);
         $str = $this->view->render($template, $data);
-        $t2 = microtime(true);
-        self::$render_time += $t2 - $t1;
-        Service::$total_time += ($t2 - $t1);
         return $str;
     }
 
-
-    private function twig_start() : Twig_Environment {
+    protected function register_view() : Twig_Environment {
         $loader = new Twig_Loader_Filesystem(ROOT.'application/views');
         $twig = new Twig_Environment($loader,
             array(
@@ -97,7 +65,6 @@ class Controller {
         else
             throw new Exception("No $model_action presented in $model_name");
     }
-
 
 }
 

@@ -10,12 +10,13 @@ namespace MVC_light;
 
 require_once 'core/settings.php';
 
-require_once 'core/service.autoloader.php';
-
 if (DEBUG) {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 }
+
+require_once 'core/service.autoloader.php';
+
 
 new Autoloader();
 
