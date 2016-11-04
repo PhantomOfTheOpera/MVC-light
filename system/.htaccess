@@ -1,0 +1,5 @@
+Options -Indexes
+<FilesMatch "create_page">
+    order allow,deny
+    deny from all
+</FilesMatch>
