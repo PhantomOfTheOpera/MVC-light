@@ -1,0 +1,101 @@
+#!/usr/bin/php
+<?php
+$sapi = php_sapi_name();
+if ($sapi != 'cli') {
+    echo "This script couldn't be launched from console only";
+    exit(0);
+}
+
+require_once __DIR__.'/../core/settings.php';
+
+prompt_type:
+
+switch (userInterface::choose_type()) {
+    case "1":
+        userInterface::usual_create();
+        break;
+    case "2":
+        userInterface::ajax_create();
+        break;
+    case "0":
+        exit();
+        break;
+    default:
+        echo "Incorrect choice\n";
+        goto prompt_type;
+        break;
+}
+class Page {
+
+    public static $page_info = [];
+
+    public static function create(array $page_info) {
+        $function = ($page_info['type'] == 'usual') ? 'create_page' : 'create_ajax';
+        self::$page_info = $page_info;
+        self::$function();
+    }
+
+    static function create_page() {
+        self::$page_info['template'] = (self::$page_info['template'] == '') ?
+            self::$page_info['name'] : self::$page_info['template'];
+        $controller_path = ROOT.'application/controller/controller.'.self::$page_info["name"].'.php';
+        $model_path = ROOT.'application/models/model.'.self::$page_info["name"].'.php';
+        $view_path = ROOT.'application/views/'.self::$page_info["template"].'.twig';
+        if (file_exists($controller_path) || file_exists($model_path) || file_exists($view_path))
+            die("Such a files exists\n");
+        $name = self::$page_info["name"];
+        $template = self::$page_info["template"];
+        ob_start();
+        include __DIR__.'/page_template/controller.php';
+        $controller = ob_get_contents();
+        ob_end_clean();
+        ob_start();
+        include __DIR__.'/page_template/model.php';
+        $model = ob_get_contents();
+        ob_end_clean();
+        file_put_contents($controller_path, $controller);
+        file_put_contents($model_path, $model);
+        file_put_contents($view_path, '');
+    }
+
+    static function create_ajax() {
+        $name = self::$page_info['name'];
+        $ajax_path = ROOT.'application/controller/ajax/ajax.'.self::$page_info['name'].'.php';
+        ob_start();
+        include __DIR__.'/page_template/ajax.php';
+        $ajax = ob_get_contents();
+        ob_end_clean();
+        if (file_exists($ajax_path))
+            die("Such a page exists");
+        file_put_contents($ajax_path, $ajax);
+    }
+}
+
+class userInterface {
+
+    static function choose_type() {
+        echo "Choose page type:\n";
+        echo "\t 1 - for usual\n";
+        echo "\t 2 - for ajax\n";
+        echo "\t 0 - for exit\n";
+        return readline("Your choice: ");
+    }
+
+    static function usual_create() {
+        $page_info = [];
+        $page_info['type'] = 'usual';
+        $page_info['name'] = readline('Input page name: ');
+        $page_info['template'] = readline('Input template name (null for same as page name): ');
+        Page::create($page_info);
+        echo "success\n";
+    }
+
+    static function ajax_create() {
+        $page_info = [];
+        $page_info['type'] = 'ajax';
+        $page_info['name'] = readline('Input page name: ');
+        Page::create($page_info);
+        echo "success\n";
+    }
+
+}

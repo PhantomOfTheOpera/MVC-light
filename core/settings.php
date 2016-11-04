@@ -31,6 +31,6 @@ define('ADMIN', true);
 
 define('CSRF_SAFE', true);
 
-define('VERSION', 'MVC-light v2.1.0');
+define('VERSION', 'MVC-light v2.1.1');
 
 define('SITE_NAME', 'MVC-light');
