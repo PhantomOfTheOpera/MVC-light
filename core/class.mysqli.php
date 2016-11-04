@@ -18,9 +18,7 @@ if (DATABASE == 'mysql') {
         protected function query(string $query)
         {
             try {
-                return $this->link->query(
-                    $this->link->real_escape_string($query)
-                );
+                return $this->link->query($query);
             } catch (Error $e) {
                 Service::error($e);
             }
