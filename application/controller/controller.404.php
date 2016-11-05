@@ -9,7 +9,7 @@ class Controller_404 extends Controller {
     public function action_index(bool $route = false) {
         if (isset($route) && $route === true)
             ;
-        echo $this->render('layout.twig', $this->model_data);
+        echo $this->render('404.twig', $this->model_data);
     }
 
 }

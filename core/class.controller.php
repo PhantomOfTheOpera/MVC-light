@@ -30,7 +30,7 @@ class Controller extends Ab_Controller {
     public function action_index(bool $route = false) {
         if (isset($route) && $route === true)
             return false;
-        echo $this->render('layout.twig', $this->model_data);
+        echo $this->render($this->model_data['template'].'.twig', $this->model_data);
     }
 
     public function render(string $template, array $data) : string {

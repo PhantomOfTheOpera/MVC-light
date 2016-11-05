@@ -1,12 +1,23 @@
-{% spaceless %}
+{# spaceless #}
 <!doctype html>
 <html lang="en">
+
     <head>
-    {% include 'head.twig' %}
-    {% include 'scripts.twig' %}
+    {% block head %}
+        {% include 'head.twig' %}
+        {% include 'scripts.twig' %}
+    {% endblock head %}
     </head>
     <body>
-        {% include template ~ '.twig' %}
+        {% block header %}
+            {# place for header #}
+        {% endblock header %}
+        {% block content %}
+            {# here could be anything #}
+        {% endblock content %}
+        {% block footer %}
+            {# place for footer #}
+        {% endblock footer %}
     </body>
 </html>
-{% endspaceless %}
+{# endspaceless #}
