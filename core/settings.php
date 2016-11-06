@@ -15,8 +15,6 @@ define('DEBUG', false);
 
 define('TWIG_CACHE_DIR', false);
 
-define('DATABASE', 'mysql');
-
 define('DB_HOST', 'localhost');
 
 define('DB_USER', 'test_test');
