@@ -27,13 +27,8 @@ if (DATABASE == 'mysql') {
         protected function query_params(string $query, array $params)
         {
             $i = 1;
-            $safe_params = [];
-            foreach ($params as $item)
-                $safe_params[] = $this->link->real_escape_string($item);
-            foreach ($safe_params as $param) {
-                $query = str_replace('$'.$i, "'".$param."'", $query);
-                $i++;
-            }
+            foreach ($params as $param)
+                $query = str_replace('$'.$i++, "'".$this->link->real_escape_string($param)."'", $query);
             return $this->query($query);
         }
 
@@ -75,12 +70,6 @@ if (DATABASE == 'mysql') {
             }
             $this->link->set_charset('UTF-8');
         }
-
-        protected function get_error($resource)
-        {
-            // TODO: Implement get_error() method.
-        }
-
 
     }
 

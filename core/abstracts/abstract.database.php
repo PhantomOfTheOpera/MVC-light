@@ -19,8 +19,6 @@ abstract class Ab_Database {
 
     abstract protected function fetch_all($resource);
 
-    abstract protected function get_error($resource);
-
     abstract protected function connect(string $host, string $user, string $password, string $db);
 
     abstract protected function close();

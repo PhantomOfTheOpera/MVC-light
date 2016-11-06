@@ -12,7 +12,7 @@ use Twig_Environment, Exception, Twig_Loader_Filesystem;
 class Controller extends Ab_Controller {
 
     function __construct(MVC_Core $core) {
-        session_start();
+        @session_start();
         $this->MVC_Core = $core;
         $this->view = $this->register_view();
         try {
@@ -23,7 +23,7 @@ class Controller extends Ab_Controller {
     }
 
     function __destruct() {
-        session_write_close();
+        @session_write_close();
         // TODO controller mustn't deal with http_response
         //http_response_code(self::$status);
     }
@@ -32,6 +32,7 @@ class Controller extends Ab_Controller {
         if (isset($route) && $route === true)
             return false;
         echo $this->render($this->model_data['template'].'.twig', $this->model_data);
+        return true;
     }
 
     public function render(string $template, array $data) : string {
