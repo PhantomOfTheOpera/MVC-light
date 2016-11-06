@@ -24,7 +24,8 @@ class Controller extends Ab_Controller {
 
     function __destruct() {
         session_write_close();
-        http_response_code(self::$status);
+        // TODO controller mustn't deal with http_response
+        //http_response_code(self::$status);
     }
 
     public function action_index(bool $route = false) {

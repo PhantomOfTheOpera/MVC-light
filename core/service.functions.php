@@ -49,9 +49,13 @@ class Service extends Ab_Service {
 
     public static function error(string $e, string $type = 'usual') {
         Controller::$status = 500;
-        if (DEBUG || $type = 'fatal')
+        if (DEBUG)
             die("<pre>$e</pre>");
-        else {
+        if ($type == 'fatal' && !DEBUG) {
+            $_SESSION['error'] = $e;
+            header('Location: /500');
+            exit;
+        } else {
             error_log($e);
         }
     }

@@ -16,7 +16,8 @@ class Model extends Ab_Model {
 
     protected function get_common() : array {
         Service::needs('css', 'main', true);
-        $this->common['token'] = Service::generate_token();
+        if (CSRF_SAFE)
+            $this->common['token'] = Service::generate_token();
         $this->common['version'] = VERSION;
         $this->common['site_name'] = SITE_NAME;
         return $this->common;
