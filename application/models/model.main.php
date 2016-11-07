@@ -13,11 +13,6 @@ use \MVC_light\Model as Model,
 class Model_Main extends Model {
 
     function get_main() : array {
-        try {
-            throw new \Exception('What a fuck');
-        } catch (\Exception $e) {
-            Service::error($e, 'fatal');
-        }
         return [
             'template' => 'main'
         ];
