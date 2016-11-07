@@ -20,7 +20,7 @@ class MVC_Core extends Ab_Core {
         }
     }
 
-    protected function error404() {
+    public function error404() {
         http_response_code(404);
         header('Location: /404'.$_SERVER['REQUEST_URI']);
         exit(0);
