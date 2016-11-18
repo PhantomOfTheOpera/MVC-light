@@ -8,6 +8,8 @@
 
 namespace MVC_light;
 
+// TODO: here must be formed installer script on first startup
+
 require_once 'core/settings.php';
 
 if (DEBUG) {
@@ -16,7 +18,6 @@ if (DEBUG) {
 }
 
 require_once 'core/service.autoloader.php';
-
 
 new Autoloader();
 

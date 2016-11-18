@@ -11,7 +11,7 @@ define('ROOT', __DIR__.'/../');
 
 define('WEB_ROOT', '/');
 
-define('DEBUG', false);
+define('DEBUG', true);
 
 define('TWIG_CACHE_DIR', false);
 

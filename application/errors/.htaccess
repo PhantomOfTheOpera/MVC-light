@@ -1,0 +1,5 @@
+Options -Indexes
+<FilesMatch "errorlog">
+    order allow,deny
+    deny from all
+</FilesMatch>
