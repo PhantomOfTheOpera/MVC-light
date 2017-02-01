@@ -22,7 +22,16 @@ class MVC_Core extends Ab_Core {
 
     public function error404() {
         http_response_code(404);
-        header('Location: /404'.$_SERVER['REQUEST_URI']);
+        $this->request[1] = '404';
+        $this->request[2] = 'index';
+        $this->path_controller = ROOT . 'application/controller/controller.' . $this->request[1] . '.php';
+        $this->name_controller = 'MVC_light\Controller\Controller_'.$this->request[1];
+        $this->action = 'action_'.$this->request[2];
+        require_once $this->path_controller;
+        $this->obj_controller = new $this->name_controller($this);
+        $method = $this->action;
+        $obj = $this->obj_controller;
+        $obj->$method();
         exit(0);
     }
 
